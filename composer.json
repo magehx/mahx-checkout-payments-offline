@@ -1,0 +1,19 @@
+{
+    "name": "magehx/mahx-checkout-payments-offline",
+    "description": "Provides offline payment methods integration for MahxCheckout.",
+    "type": "magento2-module",
+    "minimum-stability": "dev",
+    "license": "MIT",
+    "prefer-stable": true,
+    "require": {
+        "magehx/mahx-checkout": "*"
+    },
+    "autoload": {
+        "files": [
+            "src/registration.php"
+        ],
+        "psr-4": {
+            "MageHx\\MahxCheckoutOffline\\": "src/"
+        }
+    }
+}
