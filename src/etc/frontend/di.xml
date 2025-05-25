@@ -3,16 +3,18 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <type name="MageHx\MahxCheckout\Model\PaymentRenderer\PaymentRendererPool">
         <arguments>
-            <argument name="rendererClasses" xsi:type="array">
-                <item name="banktransfer" xsi:type="string">
-                    \MageHx\MahxCheckoutOffline\Model\PaymentRenderer\Renderer\BankTransferRenderer
+            <argument name="rendererDataList" xsi:type="array">
+                <item name="banktransfer" xsi:type="array">
+                    <item name="template" xsi:type="string">MageHx_MahxCheckoutOffline::payment/renderer/banktransfer.phtml</item>
                 </item>
-                <item name="cashondelivery" xsi:type="string">
-                    \MageHx\MahxCheckoutOffline\Model\PaymentRenderer\Renderer\CashOnDeliveryRenderer
+                <item name="cashondelivery" xsi:type="array">
+                    <item name="template" xsi:type="string">MageHx_MahxCheckoutOffline::payment/renderer/cashondelivery.phtml</item>
                 </item>
-                <item name="purchaseorder" xsi:type="string">
-                    \MageHx\MahxCheckoutOffline\Model\PaymentRenderer\Renderer\PurchaseOrderRenderer
+                <item name="purchaseorder" xsi:type="array">
+                    <item name="dataClass" xsi:type="string">MageHx\MahxCheckoutOffline\Data\PurchaseOrderData</item>
+                    <item name="template" xsi:type="string">MageHx_MahxCheckoutOffline::payment/renderer/purchaseorder.phtml</item>
                 </item>
+
             </argument>
         </arguments>
     </type>
