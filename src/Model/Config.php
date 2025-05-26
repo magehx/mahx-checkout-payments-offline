@@ -23,9 +23,4 @@ class Config
     {
         return $this->scopeConfig->getValue($path, ScopeInterface::SCOPE_STORE);
     }
-
-    public function isStoreSetFlag(string $path): bool
-    {
-        return $this->scopeConfig->isSetFlag($path, ScopeInterface::SCOPE_STORE);
-    }
 }

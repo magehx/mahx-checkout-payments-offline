@@ -1,9 +1,9 @@
 <?php
 
+use MageHx\MahxCheckout\ViewModel\HxAttributesRenderer;
 use MageHx\MahxCheckout\Block\PaymentRenderer;
 use MageHx\MahxCheckout\Data\PaymentMethodData;
-use MageHx\MahxCheckout\ViewModel\HxAttributesRenderer;
-use MageHx\MahxCheckoutOffline\ViewModel\BankTransfer;
+use MageHx\MahxCheckoutOffline\ViewModel\PaymentMethodInstruction;
 
 /** @var PaymentRenderer $block */
 /** @var Closure $eHtml */
@@ -11,14 +11,14 @@ use MageHx\MahxCheckoutOffline\ViewModel\BankTransfer;
 /** @var Closure $eUrl */
 /** @var Closure $viewModelProvider */
 /** @var PaymentMethodData $payment */
-/** @var BankTransfer $viewModel */
+/** @var PaymentMethodInstruction $instructionVm */
 /** @var HxAttributesRenderer $hxAttrRenderer */
 
 $payment = $block->getPaymentData();
-$viewModel = $viewModelProvider(BankTransfer::class);
+$instructionVm = $viewModelProvider(PaymentMethodInstruction::class);
 $hxAttrRenderer = $viewModelProvider(HxAttributesRenderer::class);
 ?>
-<div id="banktransfer" class="form-control">
+<div id="<?= $eHtmlAttr($payment->code) ?>" class="form-control">
     <label class="label cursor-pointer justify-start space-x-2">
         <input
             type="radio" class="radio checked:bg-neutral" name="payment_method"
@@ -31,7 +31,7 @@ $hxAttrRenderer = $viewModelProvider(HxAttributesRenderer::class);
     </label>
     <?php if ($block->isSelected()): ?>
         <div class="ml-4 text-sm my-4">
-            <?= $viewModel->getInstruction() ?>
+            <?= $instructionVm->get($payment) ?>
         </div>
     <?php endif; ?>
 </div>
