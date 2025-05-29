@@ -15,4 +15,11 @@ class PurchaseOrderData extends PaymentMethodData
             'additionalData.po_number' => 'required',
         ];
     }
+
+    public function aliases(): array
+    {
+        return [
+            'additionalData.po_number' => __('purchase order number'),
+        ];
+    }
 }
