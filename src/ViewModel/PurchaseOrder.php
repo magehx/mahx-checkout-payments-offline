@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MageHx\MahxCheckoutOffline\ViewModel;
 
-use MageHx\MahxCheckout\Data\AddressFieldAttributes;
+use MageHx\MahxCheckout\Data\FormFieldConfig;
 use MageHx\MahxCheckout\Enum\AdditionalFieldAttribute;
 use MageHx\MahxCheckout\Enum\CheckoutForm;
 use MageHx\MahxCheckout\Model\FieldRenderer\RendererPool;
@@ -19,17 +19,14 @@ class PurchaseOrder implements ArgumentInterface
 
     public function renderPONumberField(): string
     {
-        $poNumberField = AddressFieldAttributes::from([
+        $poNumberField = FormFieldConfig::from([
             'name' => 'additionalData[po_number]',
             'label' => 'Purchase Order Number',
             'type' => 'text',
             'required' => true,
             'form' => CheckoutForm::PAYMENT_METHODS->value,
-            'rules' => ['required'],
             'value' => '',
-            'additionalData' => [
-                AdditionalFieldAttribute::ID->value => 'payment-purchase-order-po-number',
-            ],
+            'id' => 'payment-purchase-order-po-number',
         ]);
 
         return $this->rendererPool->getRenderer($poNumberField)->render($poNumberField);
