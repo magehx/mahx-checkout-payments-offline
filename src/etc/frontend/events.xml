@@ -5,4 +5,8 @@
         <observer name="MageHx_MahxCheckoutOffline::register_module"
                   instance="MageHx\MahxCheckoutOffline\Observer\RegisterModuleForHyvaConfig"/>
     </event>
+    <event name="mahxcheckout_place_order_save_payment_before">
+        <observer name="MageHx_MahxCheckoutOffline::update_purchase_order"
+                  instance="MageHx\MahxCheckoutOffline\Observer\UpdatePurchaseOrderPaymentMethod"/>
+    </event>
 </config>
