@@ -25,7 +25,13 @@ $hxAttrRenderer = $viewModelProvider(HxAttributesRenderer::class);
             value="<?= $eHtmlAttr($payment->code) ?>"
             id="payment_form_method__<?= $eHtmlAttr($payment->code) ?>"
             <?= $block->isSelected() ? 'checked="checked"': '' ?>
-            <?= $hxAttrRenderer->postWithMain('mahxcheckout/form/paymentMethodPost') ?>
+            <?= $hxAttrRenderer->hxBuilder()
+                ->post('mahxcheckout/form/paymentMethodPost')
+                ->target('#payment-methods-section')
+                ->indicator('.save-payment-loader')
+                ->swapOuterHTML()
+                ->render()
+            ?>
         />
         <span class="label-text"><?= $eHtml($payment->title) ?></span>
     </label>
