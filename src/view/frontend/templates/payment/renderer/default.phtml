@@ -1,29 +1,27 @@
-<?php
+<?php declare(strict_types=1);
 
+use MageHx\MageTemplateUtils\Model\Esc;
+use MageHx\MageTemplateUtils\Model\ViewModelProvider;
 use MageHx\MahxCheckout\ViewModel\HxAttributesRenderer;
 use MageHx\MahxCheckout\Block\PaymentRenderer;
 use MageHx\MahxCheckout\Data\PaymentMethodData;
 use MageHx\MahxCheckoutOffline\ViewModel\PaymentMethodInstruction;
 
 /** @var PaymentRenderer $block */
-/** @var Closure $eHtml */
-/** @var Closure $eHtmlAttr */
-/** @var Closure $eUrl */
-/** @var Closure $viewModelProvider */
+/** @var Esc $esc */
+/** @var ViewModelProvider $viewModelProvider */
 /** @var PaymentMethodData $payment */
-/** @var PaymentMethodInstruction $instructionVm */
-/** @var HxAttributesRenderer $hxAttrRenderer */
 
 $payment = $block->getPaymentData();
-$instructionVm = $viewModelProvider(PaymentMethodInstruction::class);
-$hxAttrRenderer = $viewModelProvider(HxAttributesRenderer::class);
+$instructionVm = $viewModelProvider->get(PaymentMethodInstruction::class);
+$hxAttrRenderer = $viewModelProvider->get(HxAttributesRenderer::class);
 ?>
-<div id="<?= $eHtmlAttr($payment->code) ?>" class="form-control">
-    <label class="label cursor-pointer justify-start space-x-2">
+<div id="<?= $esc->htmlAttr($payment->code) ?>" class="payment-method form-control">
+    <div class="payment-method-title flex items-center gap-x-1">
         <input
             type="radio" class="radio checked:bg-neutral" name="payment_method"
-            value="<?= $eHtmlAttr($payment->code) ?>"
-            id="payment_form_method__<?= $eHtmlAttr($payment->code) ?>"
+            value="<?= $esc->htmlAttr($payment->code) ?>"
+            id="payment_method_<?= $esc->htmlAttr($payment->code) ?>"
             <?= $block->isSelected() ? 'checked="checked"': '' ?>
             <?= $hxAttrRenderer->hxBuilder()
                 ->post('mahxcheckout/form/paymentMethodPost')
@@ -33,10 +31,13 @@ $hxAttrRenderer = $viewModelProvider(HxAttributesRenderer::class);
                 ->render()
             ?>
         />
-        <span class="label-text"><?= $eHtml($payment->title) ?></span>
-    </label>
+        <label for="payment_method_<?= $esc->htmlAttr($payment->code) ?>" class="label cursor-pointer justify-start space-x-2">
+            <span class="label-text"><?= $esc->html($payment->title) ?></span>
+        </label>
+    </div>
+
     <?php if ($block->isSelected()): ?>
-        <div class="ml-4 text-sm my-4">
+        <div class="payment-content ml-4 text-sm my-4">
             <?= $instructionVm->get($payment) ?>
         </div>
     <?php endif; ?>
